@@ -1,4 +1,5 @@
 
+"""Read-only connection and Media Pool inspection for DaVinci Resolve."""
 
 import os
 import sys
