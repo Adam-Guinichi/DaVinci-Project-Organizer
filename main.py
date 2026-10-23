@@ -14,6 +14,7 @@ from PySide6.QtWidgets import (
     QTableWidgetItem, QHeaderView, QProgressBar, QTextEdit,
     QMessageBox, QAbstractItemView, QTabWidget, QFrame,
 )
+from resolve_api import import_resolve_script
 
 APP_DIR = Path(__file__).resolve().parent
 HISTORY_FILE = APP_DIR / "history.jsonl"
@@ -103,45 +104,11 @@ def make_plan(source, destination):
 # ------------------------------------------------------------
 
 def connect_resolve():
-    program_data = Path(os.environ.get("PROGRAMDATA", r"C:\ProgramData"))
-    scripting = (
-        program_data
-        / "Blackmagic Design"
-        / "DaVinci Resolve"
-        / "Support"
-        / "Developer"
-        / "Scripting"
-    )
-    modules = scripting / "Modules"
-
-    if modules.is_dir() and str(modules) not in sys.path:
-        sys.path.insert(0, str(modules))
-
-    program_files = Path(
-        os.environ.get("ProgramFiles", r"C:\Program Files")
-    )
-    fusion_library = (
-        program_files
-        / "Blackmagic Design"
-        / "DaVinci Resolve"
-        / "fusionscript.dll"
-    )
-
-    if fusion_library.is_file():
-        os.environ.setdefault(
-            "RESOLVE_SCRIPT_LIB", str(fusion_library)
-        )
-
-    os.environ.setdefault("RESOLVE_SCRIPT_API", str(scripting))
-
     try:
-        import DaVinciResolveScript as dvr
+        dvr = import_resolve_script()
     except Exception as exc:
         raise RuntimeError(
-            "Could not load the Resolve scripting module.\n\n"
-            "Check that DaVinci Resolve is installed and that its "
-            "Developer/Scripting/Modules folder exists.\n\n"
-            f"Details: {exc}"
+            f"{exc}"
         ) from exc
 
     try:

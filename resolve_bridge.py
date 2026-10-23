@@ -1,43 +1,14 @@
 
 """Read-only connection and Media Pool inspection for DaVinci Resolve."""
 
-import os
-import sys
 from pathlib import Path
+from resolve_api import import_resolve_script
 
 
 def _configure_resolve_api():
-    program_data = Path(
-        os.environ.get("PROGRAMDATA", r"C:\ProgramData")
-    )
-
-    api_root = (
-        program_data
-        / "Blackmagic Design"
-        / "DaVinci Resolve"
-        / "Support"
-        / "Developer"
-        / "Scripting"
-    )
-    modules = api_root / "Modules"
-
-    program_files = Path(
-        os.environ.get("ProgramFiles", r"C:\Program Files")
-    )
-    library = (
-        program_files
-        / "Blackmagic Design"
-        / "DaVinci Resolve"
-        / "fusionscript.dll"
-    )
-
-    if modules.is_dir() and str(modules) not in sys.path:
-        sys.path.insert(0, str(modules))
-
-    if library.is_file():
-        os.environ.setdefault("RESOLVE_SCRIPT_LIB", str(library))
-
-    os.environ.setdefault("RESOLVE_SCRIPT_API", str(api_root))
+    """Compatibility wrapper for older callers."""
+    from resolve_api import configure_resolve_api
+    return configure_resolve_api()
 
 
 def inspect_resolve():
@@ -46,10 +17,8 @@ def inspect_resolve():
 
     No media is imported, no paths are changed, and no project is saved.
     """
-    _configure_resolve_api()
-
     try:
-        import DaVinciResolveScript as dvr
+        dvr = import_resolve_script()
     except Exception as error:
         raise RuntimeError(
             "Could not import DaVinciResolveScript. "
