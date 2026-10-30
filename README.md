@@ -1,24 +1,24 @@
 # DaVinci Project Organizer
 
-DaVinci Project Organizer is a Python desktop application I made a while back to make media organization and project management in DaVinci Resolve easier for myself
+DaVinci Project Organizer is a Python desktop application designed to simplify media organization and project management in DaVinci Resolve.
 
-The application helps users organize their media files, verify copied files, and manage media linked to their video editing projects, all through a simple graphical interface.
+It helps users organize media, verify copied files, manage project media, and automate common editing workflows through a simple graphical interface.
 
 ### Features
 
 * **Media Organization:** Automatically sorts files into categories such as Video, Audio, Images, Projects, and Documents.
-* **File Verification:** Uses SHA-256 checksums to verify copied files and skips identical files to avoid unnecessary duplicates.
-* **DaVinci Resolve Integration:** Connects to Resolve to inspect the current project's media.
-* **Media Importing:** Imports organized media files directly into the current Resolve project.
-* **Missing Media Relinking:** Attempts to reconnect missing clips by matching filenames.
+* **File Verification:** Uses SHA-256 checksums to verify copies and avoid duplicates.
+* **DaVinci Resolve Integration:** Inspects current project media and manages linked files.
+* **Media Importing:** Imports organized media directly into Resolve.
+* **Missing Media Relinking:** Attempts to reconnect missing clips by filename.
 * **Project Backups:** Saves projects and exports `.drp` backups.
-* **Operation History:** Keeps a record of file-management operations.
+* **Operation History:** Tracks file-management operations.
 
 ### How It Works
 
-Choose a source folder and a destination, and the application scans and organizes the files while preserving their folder structure. It verifies copies to help ensure file integrity and avoids overwriting existing files.
+Select a source folder and destination, and the application scans, organizes, and copies files while preserving folder structures. It verifies copied files and avoids unnecessary duplicates.
 
-Through the DaVinci Resolve integration, users can inspect project media, import organized files, attempt to relink missing clips, and export project backups.
+It also connects to DaVinci Resolve to inspect project media, import files, relink missing clips, and export backups.
 
 ### Built With
 
@@ -27,4 +27,4 @@ Through the DaVinci Resolve integration, users can inspect project media, import
 * DaVinci Resolve Scripting API
 * SHA-256 file verification
 
-**The goal of this project is to make media organization easier, reduce repetitive tasks, and create a smoother workflow for video editing in DaVinci Resolve.**
+**The goal is to simplify media management, reduce repetitive tasks, and improve the overall video editing workflow.**
